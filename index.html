@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Services Catalogue</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(120deg, #2c3e50, #4a69bd);
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin: 15px 0;
+            color: #e0e0e0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background: #4a69bd;
+            color: white;
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-header i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-body p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        .problem-solved {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #4a69bd;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        .examples {
+            background: #f1f3f6;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .examples h4 {
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .examples ul {
+            padding-left: 20px;
+        }
+        
+        .examples li {
+            margin-bottom: 5px;
+        }
+        
+        .category-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .category-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: #4a69bd;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .core { border-top: 5px solid #4a69bd; }
+        .expansion { border-top: 5px solid #2ecc71; }
+        .future { border-top: 5px solid #e74c3c; }
+        
+        .core .card-header { background: #4a69bd; }
+        .expansion .card-header { background: #2ecc71; }
+        .future .card-header { background: #e74c3c; }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Full-Stack Web Development & Digital Solution Crafting</h1>
+            <p class="tagline">From concept to code, I build robust, user-centric web solutions that solve real business problems.</p>
+            <p>Expertise in modern web technologies with a passion for expanding limits and developing problem-solving solutions</p>
+        </header>
+
+        <h2 class="category-title">Core Services (Your Expertise Area)</h2>
+        <div class="services-grid">
+            <div class="service-card core">
+                <div class="card-header">
+                    <h3><i class="fas fa-laptop-code"></i> Custom Web Application Development</h3>
+                </div>
+                <div class="card-body">
+                    <p>Building dynamic, data-driven web applications from the ground up using modern stacks (e.g., React/Vue/Angular on the frontend, Node.js/Python/PHP on the backend).</p>
+                    <div class="problem-solved">
+                        "I have a unique business process that off-the-shelf software can't handle. I need a tailored tool to manage my data, automate tasks, and improve team efficiency."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Internal admin dashboards</li>
+                            <li>Customer relationship management (CRM) tools</li>
+                            <li>Booking systems</li>
+                            <li>Inventory management systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card core">
+                <div class="card-header">
+                    <h3><i class="fas fa-plug"></i> API Development & Integration</h3>
+                </div>
+                <div class="card-body">
+                    <p>Creating robust RESTful or GraphQL APIs to serve your application data. Also, integrating third-party services (e.g., payment gateways like Stripe, communication tools like Twilio).</p>
+                    <div class="problem-solved">
+                        "My different software tools don't talk to each other, causing manual work and errors. I need to connect my website to my payment processor and email marketing service."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Building a custom API for a mobile app</li>
+                            <li>Connecting an e-commerce store to a shipping provider</li>
+                            <li>Automating lead data flow from a website form to a CRM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card core">
+                <div class="card-header">
+                    <h3><i class="fas fa-paint-brush"></i> Front-End Development & Modernization</h3>
+                </div>
+                <div class="card-body">
+                    <p>Transforming designs (from Figma, Adobe XD, or sketches) into fast, responsive, and interactive websites using modern JavaScript frameworks and CSS preprocessors.</p>
+                    <div class="problem-solved">
+                        "My website looks outdated and doesn't work well on phones. I need a fresh, modern, and professional site that engages my visitors."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Redesigning a company's flagship website</li>
+                            <li>Building a marketing landing page for a new product</li>
+                            <li>Creating a smooth single-page application (SPA)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="category-title">Expansion Services (Growing Your Limits)</h2>
+        <div class="services-grid">
+            <div class="service-card expansion">
+                <div class="card-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Performance Optimization & Audits</h3>
+                </div>
+                <div class="card-body">
+                    <p>Analyzing existing websites and applications to identify bottlenecks. Implementing solutions for faster loading times, smoother interactions, and improved Google Core Web Vitals scores.</p>
+                    <div class="problem-solved">
+                        "My website is slow, and I'm losing potential customers. Google says my site performance is poor."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Conducting a performance audit</li>
+                            <li>Optimizing image delivery</li>
+                            <li>Implementing lazy loading</li>
+                            <li>Reducing JavaScript bundle size</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card expansion">
+                <div class="card-header">
+                    <h3><i class="fas fa-mobile-alt"></i> Progressive Web App (PWA) Development</h3>
+                </div>
+                <div class="card-body">
+                    <p>Building websites that behave like mobile apps—they can work offline, send push notifications, and be installed on a user's home screen.</p>
+                    <div class="problem-solved">
+                        "I want a mobile presence without the high cost and complexity of building native iOS and Android apps."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Converting an existing website into a PWA</li>
+                            <li>Building an offline-capable news or content app</li>
+                            <li>Creating a point-of-sale (POS) system that works on tablets offline</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card expansion">
+                <div class="card-header">
+                    <h3><i class="fas fa-rocket"></i> MVP Development for Startups</h3>
+                </div>
+                <div class="card-body">
+                    <p>Helping entrepreneurs and startups quickly build a functional prototype of their idea to validate the market, attract early users, and secure funding.</p>
+                    <div class="problem-solved">
+                        "I have a great idea for an app but need a technical partner to build the first version quickly and efficiently without a massive budget."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>A prototype for a social networking idea</li>
+                            <li>A basic SaaS product</li>
+                            <li>A mobile-first community platform</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="category-title">"Future-Proof" Services (Stretching Your Expertise)</h2>
+        <div class="services-grid">
+            <div class="service-card future">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-bar"></i> Data Visualization & Dashboarding</h3>
+                </div>
+                <div class="card-body">
+                    <p>Taking complex data from databases or APIs and turning it into intuitive, interactive charts, graphs, and maps using libraries like D3.js, Chart.js, or Tableau alternatives.</p>
+                    <div class="problem-solved">
+                        "I have a lot of data, but I can't make sense of it. I need clear, visual insights to help me make better business decisions."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>A financial analytics dashboard for a small business</li>
+                            <li>An interactive map showing real estate listings</li>
+                            <li>A live chart displaying sensor data from IoT devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card future">
+                <div class="card-header">
+                    <h3><i class="fas fa-robot"></i> AI & Machine Learning Integration</h3>
+                </div>
+                <div class="card-body">
+                    <p>Not building AI models from scratch, but practically integrating AI APIs (e.g., OpenAI GPT, Google Gemini, AWS AI services) into web applications to add smart features.</p>
+                    <div class="problem-solved">
+                        "I want to make my product smarter, like adding a chatbot for customer support, automatic content tagging, or personalized recommendations."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>Building a custom AI-powered customer support chat</li>
+                            <li>Adding smart search that understands natural language</li>
+                            <li>Creating a feature that summarizes user-generated content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card future">
+                <div class="card-header">
+                    <h3><i class="fas fa-cloud"></i> IoT Backends & Interfaces</h3>
+                </div>
+                <div class="card-body">
+                    <p>Building the web-based "brain" and dashboard for connected devices. This involves handling data ingestion from devices via APIs, storing it, and presenting it to users.</p>
+                    <div class="problem-solved">
+                        "I have a hardware product that collects data, and I need a secure website and API where my users can see and control their devices."
+                    </div>
+                    <div class="examples">
+                        <h4>Example Projects:</h4>
+                        <ul>
+                            <li>A dashboard for smart home sensors</li>
+                            <li>A monitoring system for agricultural IoT devices</li>
+                            <li>A companion web app for a fitness tracker</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 Web Development Services | Crafting digital solutions that solve real business problems</p>
+            <p>Contact to discuss how we can bring your project to life</p>
+        </footer>
+    </div>
+</body>
+</html>
