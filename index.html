@@ -7,6 +7,8 @@
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Load Three.js for 3D rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         /* Configure Tailwind for the Inter font */
         html {
@@ -14,42 +16,39 @@
             background-color: #0d1117; /* Dark background for luxury feel */
         }
         
-        /* Custom CSS for the rich, animating background in the Hero section */
+        /* Custom CSS for the 3D Hero section */
         #home-hero {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            background: #0d1117; /* Solid dark background for the canvas */
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        #home-hero::before {
-            content: '';
+        /* Canvas should fill the section and be behind the text */
+        #hero-canvas {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(79, 70, 229, 0.1) 0%, rgba(17, 24, 39, 0) 70%), 
-                        repeating-linear-gradient(
-                            -45deg, 
-                            rgba(255, 255, 255, 0.05), 
-                            rgba(255, 255, 255, 0.05) 1px, 
-                            transparent 1px, 
-                            transparent 20px
-                        );
-            background-size: 50px 50px;
-            animation: moveGradient 60s linear infinite;
-            pointer-events: none;
-            opacity: 0.3;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
         }
 
-        @keyframes moveGradient {
-            from {
-                transform: translate(0, 0);
-            }
-            to {
-                transform: translate(50px, 50px);
-            }
+        /* Ensure the content is always on top of the canvas */
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 90%;
+            /* Added background blur for text legibility over the moving 3D scene */
+            background: rgba(13, 17, 23, 0.5); 
+            backdrop-filter: blur(5px);
+            border-radius: 1rem;
         }
 
         /* Accent color: A muted indigo/slate for a sophisticated highlight */
@@ -59,14 +58,147 @@
         .bg-accent-light {
             background-color: #374151; /* Dark slate for card backgrounds */
         }
+
+        /* CSS for the intro animation - Fade In Up */
+        .animate-fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
     <script>
+        // --- 3D SCENE GLOBAL VARIABLES ---
+        let scene, camera, renderer, clock, cubeGrid;
+
+        // Function to set up the Three.js 3D scene
+        function initThreeJS() {
+            const container = document.getElementById('home-hero');
+            const canvas = document.getElementById('hero-canvas');
+            
+            // FIX: Added necessary checks to ensure elements are loaded
+            if (!container || !canvas) {
+                console.error("3D container or canvas element not found. Retrying initialization...");
+                return;
+            }
+
+            // 1. Scene setup
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x0d1117, 10, 50); // Soften objects far away
+            clock = new THREE.Clock();
+
+            // 2. Camera setup
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 5, 20); // Initial position
+            
+            // 3. Renderer setup
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x0d1117, 1); // Set background to match body
+            
+            // 4. Lighting - subtle blue glow
+            const ambientLight = new THREE.AmbientLight(0x818cf8, 0.5); // Soft blue ambient light
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0x818cf8, 2);
+            directionalLight.position.set(10, 20, 10);
+            scene.add(directionalLight);
+            
+            // 5. Create the Digital Precision Grid (Igloo/Preciseness concept)
+            cubeGrid = new THREE.Group();
+            const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+            const material = new THREE.MeshLambertMaterial({ color: 0x818cf8, emissive: 0x818cf8, emissiveIntensity: 0.5 }); // Glowing blue
+
+            const gridSize = 15;
+            const spacing = 3;
+
+            for (let x = -gridSize; x <= gridSize; x += spacing) {
+                for (let z = -gridSize; z <= gridSize; z += spacing) {
+                    const cube = new THREE.Mesh(geometry, material);
+                    cube.position.set(x, Math.random() * 2, z);
+                    cubeGrid.add(cube);
+                }
+            }
+            scene.add(cubeGrid);
+
+            // Handle window resizing
+            window.addEventListener('resize', onWindowResize, false);
+
+            // Start the animation loop
+            animate();
+        }
+
+        // Animation loop
+        function animate() {
+            // Check if renderer exists before requesting frame, preventing errors during initialization race conditions
+            if (!renderer) {
+                console.warn("Renderer not ready for animation.");
+                return;
+            }
+            requestAnimationFrame(animate);
+
+            const delta = clock.getDelta();
+            const elapsedTime = clock.getElapsedTime();
+
+            // Subtle camera movement to add depth
+            camera.position.x = Math.sin(elapsedTime * 0.1) * 15;
+            camera.position.z = Math.cos(elapsedTime * 0.1) * 15;
+            camera.lookAt(scene.position); // Always look at the center
+
+            // Make the cube grid gently rotate and oscillate
+            cubeGrid.rotation.y += 0.05 * delta;
+            cubeGrid.position.y = Math.sin(elapsedTime * 0.5) * 1;
+
+            cubeGrid.children.forEach((cube, index) => {
+                // Subtle random vertical oscillation for each cube
+                cube.position.y = Math.sin(elapsedTime * 2 + index * 0.5) * 0.5; 
+                cube.rotation.x += 0.5 * delta;
+                cube.rotation.z += 0.5 * delta;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        // Handle resizing for responsiveness
+        function onWindowResize() {
+            const container = document.getElementById('home-hero');
+            if (!container || !camera || !renderer) return; // FIX: Added safety checks
+
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
         // Function to toggle the mobile menu visibility
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             // Toggle between 'hidden' and 'flex' classes
             menu.classList.toggle('hidden');
             menu.classList.toggle('flex');
+        }
+
+        // Function to animate the hero text sequentially
+        function animateHeroText() {
+            const elements = [
+                document.querySelector('.hero-statement-1'),
+                document.querySelector('.hero-statement-2'),
+                document.querySelector('.hero-statement-3'),
+                document.querySelector('.hero-statement-4'),
+                document.querySelector('.hero-statement-5') // The button
+            ];
+
+            elements.forEach((el, index) => {
+                if (el) {
+                    el.style.animationDelay = `${0.3 * (index + 1)}s`;
+                    el.classList.add('animate-fade-in-up');
+                }
+            });
         }
 
         // Simple client-side utility to handle mailto link safely
@@ -90,6 +222,12 @@
                 form.reset();
             }, 5000);
         }
+
+        // Initialize 3D scene and text animations on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            animateHeroText();
+        });
     </script>
 </head>
 
@@ -100,7 +238,7 @@
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap justify-between items-center">
             
             <!-- Logo -->
-            <a href="#home" class="text-2xl font-bold text-accent tracking-wider rounded-md transition duration-300">
+            <a href="#home-hero" class="text-2xl font-bold text-accent tracking-wider rounded-md transition duration-300">
                 Pixelup <span class="text-white">Solution</span>
             </a>
             
@@ -113,7 +251,7 @@
             <!-- Menu Links (Desktop and Mobile) -->
             <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 w-full md:w-auto text-center md:text-left transition-all duration-300 ease-in-out">
                 <!-- Added onclick to close menu on mobile when a link is clicked -->
-                <a href="#home" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
+                <a href="#home-hero" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
                    class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Home</a>
                 <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
                    class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Services</a>
@@ -126,16 +264,25 @@
     </header>
 
     <!-- 1. Hero / Company Intro Section -->
-    <section id="home" id="home-hero" class="relative flex items-center justify-center text-center p-8 sm:p-12">
-        <div class="relative z-10 max-w-4xl mx-auto py-32 sm:py-48 lg:py-64">
-            <p class="text-md sm:text-lg font-medium text-gray-400 mb-4 tracking-widest uppercase">Pixelup Solution Pte. Ltd. | Singapore</p>
-            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white">
+    <!-- FIX: Removed duplicate ID attribute. Uses id="home-hero" for the JS to find the container. -->
+    <section id="home-hero" class="p-8 sm:p-12">
+        <!-- 3D Canvas RENDERER -->
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- Hero Content Overlay -->
+        <div class="hero-content-wrapper max-w-4xl mx-auto py-32 sm:py-48 lg:py-64">
+            <p class="text-md sm:text-lg font-medium text-gray-300 mb-4 tracking-widest uppercase hero-statement-1">Pixelup Solution Pte. Ltd. | Singapore</p>
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white hero-statement-2">
                 Engineering <span class="text-accent">Precision</span> <br class="hidden sm:inline"> For A Digital Future.
             </h1>
-            <p class="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                We deliver creative, innovative, and affordable application development with unwavering **preciseness**, turning complex challenges into simple, elegant digital solutions.
+            <!-- FIX: Removed markdown bolding, relying on Tailwind's font-bold/font-extrabold which is applied via classes on the section text -->
+            <p class="text-xl sm:text-2xl text-gray-200 font-bold max-w-3xl mx-auto leading-relaxed hero-statement-3">
+                We deliver creative, innovative, and affordable application development with unwavering preciseness,
             </p>
-            <a href="#services" class="mt-10 inline-block px-8 py-3 bg-accent text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.02]">
+            <p class="text-xl sm:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed hero-statement-4">
+                turning complex challenges into simple, elegant digital solutions.
+            </p>
+            <a href="#services" class="mt-10 inline-block px-8 py-3 bg-accent text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.02] hero-statement-5">
                 Explore Our Expertise
             </a>
         </div>
@@ -212,8 +359,9 @@
             </p>
 
             <div class="bg-gray-800 p-8 sm:p-12 rounded-xl shadow-2xl border-l-4 border-accent">
+                <!-- FIX: Removed markdown bolding, relying on Tailwind's font-bold/font-extrabold which is applied via classes on the blockquote text -->
                 <blockquote class="text-2xl sm:text-3xl italic font-light text-gray-200 leading-relaxed mb-6">
-                    "Our group is formed with **empathy** in mind. We don't just write code; we partner with you to understand the human impact of our solutions."
+                    "Our group is formed with <span class="font-bold">empathy</span> in mind. We don't just write code; we partner with you to understand the human impact of our solutions."
                 </blockquote>
                 <p class="text-lg text-gray-300 border-t border-gray-700 pt-6">
                     The Pixelup Solution team is composed of experts with decades of combined experience, honed by working on leading, cutting-edge technology platforms globally. 
