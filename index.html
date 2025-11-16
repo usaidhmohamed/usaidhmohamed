@@ -1,378 +1,277 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PixelUp Solutions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Pixelup Solution Pte. Ltd. | Precision Software Development</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Configure Tailwind for the Inter font */
+        html {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background for luxury feel */
         }
         
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(120deg, #2c3e50, #4a69bd);
-            color: white;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .tagline {
-            font-style: italic;
-            margin: 15px 0;
-            color: #e0e0e0;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-header {
-            padding: 20px;
-            background: #4a69bd;
-            color: white;
-        }
-        
-        .card-header h3 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-header i {
-            margin-right: 10px;
-            font-size: 1.8rem;
-        }
-        
-        .card-body {
-            padding: 20px;
-        }
-        
-        .card-body p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-        
-        .problem-solved {
-            background: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #4a69bd;
-            margin: 15px 0;
-            font-style: italic;
-        }
-        
-        .examples {
-            background: #f1f3f6;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        
-        .examples h4 {
-            margin-bottom: 8px;
-            color: #2c3e50;
-        }
-        
-        .examples ul {
-            padding-left: 20px;
-        }
-        
-        .examples li {
-            margin-bottom: 5px;
-        }
-        
-        .category-title {
-            text-align: center;
-            margin: 40px 0 20px;
-            color: #2c3e50;
+        /* Custom CSS for the rich, animating background in the Hero section */
+        #home-hero {
             position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            min-height: 100vh;
         }
-        
-        .category-title:after {
+
+        #home-hero::before {
             content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: #4a69bd;
-            margin: 10px auto;
-            border-radius: 2px;
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(79, 70, 229, 0.1) 0%, rgba(17, 24, 39, 0) 70%), 
+                        repeating-linear-gradient(
+                            -45deg, 
+                            rgba(255, 255, 255, 0.05), 
+                            rgba(255, 255, 255, 0.05) 1px, 
+                            transparent 1px, 
+                            transparent 20px
+                        );
+            background-size: 50px 50px;
+            animation: moveGradient 60s linear infinite;
+            pointer-events: none;
+            opacity: 0.3;
         }
-        
-        .core { border-top: 5px solid #4a69bd; }
-        .expansion { border-top: 5px solid #2ecc71; }
-        .future { border-top: 5px solid #e74c3c; }
-        
-        .core .card-header { background: #4a69bd; }
-        .expansion .card-header { background: #2ecc71; }
-        .future .card-header { background: #e74c3c; }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            background: #2c3e50;
-            color: white;
-            border-radius: 10px;
+
+        @keyframes moveGradient {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(50px, 50px);
+            }
         }
-        
-        @media (max-width: 768px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            header h1 {
-                font-size: 2rem;
-            }
+
+        /* Accent color: A muted indigo/slate for a sophisticated highlight */
+        .text-accent {
+            color: #818cf8; /* A light indigo */
+        }
+        .bg-accent-light {
+            background-color: #374151; /* Dark slate for card backgrounds */
         }
     </style>
+    <script>
+        // Simple client-side utility to handle mailto link safely
+        function submitInquiry(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.name.value;
+            const email = form.email.value;
+            const message = form.message.value;
+            const subject = encodeURIComponent(`Inquiry from ${name} (Pixelup Website)`);
+            const body = encodeURIComponent(`Sender Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`);
+
+            window.location.href = `mailto:usaidh@outlook.com?subject=${subject}&body=${body}`;
+
+            // Provide a visual feedback message instead of alert()
+            const feedbackDiv = document.getElementById('feedback-message');
+            feedbackDiv.classList.remove('hidden');
+            feedbackDiv.textContent = 'Opening your email client... Thank you for your inquiry!';
+            setTimeout(() => {
+                feedbackDiv.classList.add('hidden');
+                form.reset();
+            }, 5000);
+        }
+    </script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Full-Stack Application Development & Digital Solution Crafting</h1>
-            <p class="tagline">From concept to code, We build robust, user-centric web solutions that solve real business problems.</p>
-            <p>Expertise in modern web technologies with a passion for expanding limits and developing problem-solving solutions</p>
-        </header>
 
-        <h2 class="category-title">Core Services (Our Expertise Area)</h2>
-        <div class="services-grid">
-            <div class="service-card core">
-                <div class="card-header">
-                    <h3><i class="fas fa-laptop-code"></i> Custom Web Application Development</h3>
-                </div>
-                <div class="card-body">
-                    <p>Building dynamic, data-driven web applications from the ground up using modern stacks (e.g., React/Vue/Angular on the frontend, Node.js/Python/PHP on the backend).</p>
-                    <div class="problem-solved">
-                        "I have a unique business process that off-the-shelf software can't handle. I need a tailored tool to manage my data, automate tasks, and improve team efficiency."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Internal admin dashboards</li>
-                            <li>Customer relationship management (CRM) tools</li>
-                            <li>Booking systems</li>
-                            <li>Inventory management systems</li>
-                        </ul>
-                    </div>
-                </div>
+<body class="text-gray-100 bg-[#0d1117]">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-xl">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+            <a href="#home" class="text-2xl font-bold text-accent tracking-wider rounded-md transition duration-300">
+                Pixelup <span class="text-white">Solution</span>
+            </a>
+            <div class="space-x-8 hidden md:flex">
+                <a href="#home" class="text-gray-300 hover:text-accent transition duration-300 px-3 py-1 rounded-lg">Home</a>
+                <a href="#services" class="text-gray-300 hover:text-accent transition duration-300 px-3 py-1 rounded-lg">Services</a>
+                <a href="#team" class="text-gray-300 hover:text-accent transition duration-300 px-3 py-1 rounded-lg">Team</a>
+                <a href="#contact" class="text-gray-300 hover:text-accent transition duration-300 px-3 py-1 rounded-lg">Contact</a>
             </div>
+            <!-- Mobile Menu Placeholder (Not fully implemented for simplicity/single-file mandate, but responsive utility classes used) -->
+            <button class="md:hidden text-gray-300 hover:text-accent focus:outline-none">
+                <!-- Hamburger Icon (SVG) -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
 
-            <div class="service-card core">
-                <div class="card-header">
-                    <h3><i class="fas fa-plug"></i> API Development & Integration</h3>
-                </div>
-                <div class="card-body">
-                    <p>Creating robust RESTful or GraphQL APIs to serve your application data. Also, integrating third-party services (e.g., payment gateways like Stripe, communication tools like Twilio).</p>
-                    <div class="problem-solved">
-                        "My different software tools don't talk to each other, causing manual work and errors. I need to connect my website to my payment processor and email marketing service."
+    <!-- 1. Hero / Company Intro Section -->
+    <section id="home" id="home-hero" class="relative flex items-center justify-center text-center p-8 sm:p-12">
+        <div class="relative z-10 max-w-4xl mx-auto py-32 sm:py-48 lg:py-64">
+            <p class="text-md sm:text-lg font-medium text-gray-400 mb-4 tracking-widest uppercase">Pixelup Solution Pte. Ltd. | Singapore</p>
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white">
+                Engineering <span class="text-accent">Precision</span> <br class="hidden sm:inline"> For A Digital Future.
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                We deliver creative, innovative, and affordable application development with unwavering **preciseness**, turning complex challenges into simple, elegant digital solutions.
+            </p>
+            <a href="#services" class="mt-10 inline-block px-8 py-3 bg-accent text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.02]">
+                Explore Our Expertise
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. What We Do / Services Section -->
+    <section id="services" class="py-20 sm:py-24 bg-gray-900 border-t border-b border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                What <span class="text-accent">We Do</span>
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto">
+                Our bespoke development philosophy is built on technical mastery and deep business understanding.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Service 1: Development from Scratch -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                     </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Building a custom API for a mobile app</li>
-                            <li>Connecting an e-commerce store to a shipping provider</li>
-                            <li>Automating lead data flow from a website form to a CRM</li>
-                        </ul>
-                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Application Development</h3>
+                    <p class="text-gray-300">
+                        End-to-end web and mobile application development from concept through to deployment. We build robust, scalable solutions from scratch.
+                    </p>
                 </div>
+
+                <!-- Service 2: Take Over & Maintain -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Expansion & Maintenance</h3>
+                    <p class="text-gray-300">
+                        We take over, maintain, and expertly expand existing legacy or active applications, ensuring stability and future-proofing your tech stack.
+                    </p>
+                </div>
+
+                <!-- Service 3: AI & Data Science -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Data Science & AI Boost</h3>
+                    <p class="text-gray-300">
+                        Leverage cutting-edge Data Science and AI models to gain insights, automate processes, and significantly boost your business performance.
+                    </p>
+                </div>
+
+                <!-- Service 4: Bespoke Development -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.127l.968 2.872.968-2.872L21 12l-5.968 2.127-.968-2.872-.968 2.872L3 12l5.968-2.127.968 2.872.968-2.872"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Custom Bespoke Solutions</h3>
+                    <p class="text-gray-300">
+                        Truly unique, custom-built applications designed specifically to meet your exact operational requirements and strategic goals.
+                    </p>
+                </div>
+
             </div>
+        </div>
+    </section>
 
-            <div class="service-card core">
-                <div class="card-header">
-                    <h3><i class="fas fa-paint-brush"></i> Front-End Development & Modernization</h3>
-                </div>
-                <div class="card-body">
-                    <p>Transforming designs (from Figma, Adobe XD, or sketches) into fast, responsive, and interactive websites using modern JavaScript frameworks and CSS preprocessors.</p>
-                    <div class="problem-solved">
-                        "My website looks outdated and doesn't work well on phones. I need a fresh, modern, and professional site that engages my visitors."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Redesigning a company's flagship website</li>
-                            <li>Building a marketing landing page for a new product</li>
-                            <li>Creating a smooth single-page application (SPA)</li>
-                        </ul>
-                    </div>
+    <!-- 3. Who We Are / Team Section -->
+    <section id="team" class="py-20 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                The <span class="text-accent">Team</span> Behind The Code
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-16">
+                A collective of seasoned veterans dedicated to your success.
+            </p>
+
+            <div class="bg-gray-800 p-8 sm:p-12 rounded-xl shadow-2xl border-l-4 border-accent">
+                <blockquote class="text-2xl sm:text-3xl italic font-light text-gray-200 leading-relaxed mb-6">
+                    "Our group is formed with **empathy** in mind. We don't just write code; we partner with you to understand the human impact of our solutions."
+                </blockquote>
+                <p class="text-lg text-gray-300 border-t border-gray-700 pt-6">
+                    The Pixelup Solution team is composed of experts with decades of combined experience, honed by working on leading, cutting-edge technology platforms globally. 
+                </p>
+                <div class="mt-4 text-gray-400 font-semibold space-y-2">
+                    <p>Our sector experience includes:</p>
+                    <ul class="list-none grid grid-cols-2 gap-4 mt-2 pl-0">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.593 23.593 0 0112 15c-3.153 0-6.223-.526-9-1.745M16 18.5a4 4 0 004 4M4 18.5a4 4 0 014 4"></path></svg>
+                            Banking & Finance
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Real Estate Tech
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.21a4.004 4.004 0 010 5.656L12 20.502 4.382 12.89a4.004 4.004 0 010-5.656 4.004 4.004 0 015.656 0L12 8.5l2.059-2.058a4.004 4.004 0 015.656 0z"></path></svg>
+                            Healthcare Systems
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            High-Growth Startups
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </section>
 
-        <h2 class="category-title">Expansion Services (Growing Our Limits)</h2>
-        <div class="services-grid">
-            <div class="service-card expansion">
-                <div class="card-header">
-                    <h3><i class="fas fa-tachometer-alt"></i> Performance Optimization & Audits</h3>
-                </div>
-                <div class="card-body">
-                    <p>Analyzing existing websites and applications to identify bottlenecks. Implementing solutions for faster loading times, smoother interactions, and improved Google Core Web Vitals scores.</p>
-                    <div class="problem-solved">
-                        "My website is slow, and I'm losing potential customers. Google says my site performance is poor."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Conducting a performance audit</li>
-                            <li>Optimizing image delivery</li>
-                            <li>Implementing lazy loading</li>
-                            <li>Reducing JavaScript bundle size</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <!-- 4. Contact Us Section -->
+    <section id="contact" class="py-20 sm:py-24 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                Connect <span class="text-accent">With Us</span>
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-12">
+                Let's discuss your next breakthrough project.
+            </p>
 
-            <div class="service-card expansion">
-                <div class="card-header">
-                    <h3><i class="fas fa-mobile-alt"></i> Progressive Web App (PWA) Development</h3>
-                </div>
-                <div class="card-body">
-                    <p>Building websites that behave like mobile apps—they can work offline, send push notifications, and be installed on a user's home screen.</p>
-                    <div class="problem-solved">
-                        "I want a mobile presence without the high cost and complexity of building native iOS and Android apps."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Converting an existing website into a PWA</li>
-                            <li>Building an offline-capable news or content app</li>
-                            <li>Creating a point-of-sale (POS) system that works on tablets offline</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <div id="feedback-message" class="hidden text-center p-3 mb-6 rounded-lg bg-green-900/50 text-green-300 font-medium"></div>
 
-            <div class="service-card expansion">
-                <div class="card-header">
-                    <h3><i class="fas fa-rocket"></i> MVP Development for Startups</h3>
+            <!-- Inquiry Form -->
+            <form onsubmit="submitInquiry(event)" class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700 space-y-6">
+                
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Your name">
                 </div>
-                <div class="card-body">
-                    <p>Helping entrepreneurs and startups quickly build a functional prototype of their idea to validate the market, attract early users, and secure funding.</p>
-                    <div class="problem-solved">
-                        "I have a great idea for an app but need a technical partner to build the first version quickly and efficiently without a massive budget."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>A prototype for a social networking idea</li>
-                            <li>A basic SaaS product</li>
-                            <li>A mobile-first community platform</li>
-                        </ul>
-                    </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Work Email</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="your.email@company.com">
                 </div>
-            </div>
+
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Inquiry Details</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Tell us about your project, budget, and timeline..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full px-6 py-3 bg-accent text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.01]">
+                    Send Inquiry
+                </button>
+                <p class="text-center text-sm text-gray-400 mt-4">
+                    This button will open your default email client to send a message to: <span class="text-accent font-mono">usaidh@outlook.com</span>
+                </p>
+            </form>
         </div>
+    </section>
 
-        <h2 class="category-title">"Future-Proof" Services (Stretching Our Expertise)</h2>
-        <div class="services-grid">
-            <div class="service-card future">
-                <div class="card-header">
-                    <h3><i class="fas fa-chart-bar"></i> Data Visualization & Dashboarding</h3>
-                </div>
-                <div class="card-body">
-                    <p>Taking complex data from databases or APIs and turning it into intuitive, interactive charts, graphs, and maps using libraries like D3.js, Chart.js, or Tableau alternatives.</p>
-                    <div class="problem-solved">
-                        "I have a lot of data, but I can't make sense of it. I need clear, visual insights to help me make better business decisions."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>A financial analytics dashboard for a small business</li>
-                            <li>An interactive map showing real estate listings</li>
-                            <li>A live chart displaying sensor data from IoT devices</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card future">
-                <div class="card-header">
-                    <h3><i class="fas fa-robot"></i> AI & Machine Learning Integration</h3>
-                </div>
-                <div class="card-body">
-                    <p>Not building AI models from scratch, but practically integrating AI APIs (e.g., OpenAI GPT, Google Gemini, AWS AI services) into web applications to add smart features.</p>
-                    <div class="problem-solved">
-                        "I want to make my product smarter, like adding a chatbot for customer support, automatic content tagging, or personalized recommendations."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>Building a custom AI-powered customer support chat</li>
-                            <li>Adding smart search that understands natural language</li>
-                            <li>Creating a feature that summarizes user-generated content</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card future">
-                <div class="card-header">
-                    <h3><i class="fas fa-cloud"></i> IoT Backends & Interfaces</h3>
-                </div>
-                <div class="card-body">
-                    <p>Building the web-based "brain" and dashboard for connected devices. This involves handling data ingestion from devices via APIs, storing it, and presenting it to users.</p>
-                    <div class="problem-solved">
-                        "I have a hardware product that collects data, and I need a secure website and API where my users can see and control their devices."
-                    </div>
-                    <div class="examples">
-                        <h4>Example Projects:</h4>
-                        <ul>
-                            <li>A dashboard for smart home sensors</li>
-                            <li>A monitoring system for agricultural IoT devices</li>
-                            <li>A companion web app for a fitness tracker</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Pixelup Solution Pte. Ltd. All Rights Reserved. </p>
+            <p class="mt-2">Crafted with Precision in Singapore.</p>
         </div>
+    </footer>
 
-        <footer>
-            <p>© 2025 Web Development Services | Crafting digital solutions that solve real business problems</p>
-            <p>Contact to discuss how we can bring your project to life</p>
-        </footer>
-    </div>
 </body>
 </html>
