@@ -21,6 +21,7 @@
             position: relative;
             overflow: hidden;
             background: #0d1117; /* Solid dark background for the canvas */
+            /* CRITICAL: Ensure full height for canvas visibility */
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -73,6 +74,260 @@
             }
         }
     </style>
+</head>
+
+<body class="text-gray-100 bg-[#0d1117]">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-xl">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap justify-between items-center">
+            
+            <!-- Logo -->
+            <a href="#home-hero" class="text-2xl font-bold text-accent tracking-wider rounded-md transition duration-300">
+                Pixelup <span class="text-white">Solution</span>
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-accent focus:outline-none p-2 rounded-md transition duration-300">
+                <!-- Hamburger Icon (SVG) -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+            
+            <!-- Menu Links (Desktop and Mobile) -->
+            <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 w-full md:w-auto text-center md:text-left transition-all duration-300 ease-in-out">
+                <!-- Added onclick to close menu on mobile when a link is clicked -->
+                <a href="#home-hero" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
+                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Home</a>
+                <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
+                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Services</a>
+                <a href="#team" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
+                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Team</a>
+                <a href="#contact" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
+                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 1. Hero / Company Intro Section -->
+    <section id="home-hero" class="p-8 sm:p-12">
+        <!-- 3D Canvas RENDERER -->
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- Hero Content Overlay -->
+        <div class="hero-content-wrapper max-w-4xl mx-auto py-32 sm:py-48 lg:py-64">
+            <p class="text-md sm:text-lg font-medium text-gray-300 mb-4 tracking-widest uppercase hero-statement-1">Pixelup Solution Pte. Ltd. | Singapore</p>
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white hero-statement-2">
+                Engineering <span class="text-accent">Precision</span> <br class="hidden sm:inline"> For A Digital Future.
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-200 font-bold max-w-3xl mx-auto leading-relaxed hero-statement-3">
+                We deliver creative, innovative, and affordable application development with unwavering preciseness,
+            </p>
+            <p class="text-xl sm:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed hero-statement-4">
+                turning complex challenges into simple, elegant digital solutions.
+            </p>
+            <a href="#services" class="mt-10 inline-block px-8 py-3 bg-accent text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.02] hero-statement-5">
+                Explore Our Expertise
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. What We Do / Services Section -->
+    <section id="services" class="py-20 sm:py-24 bg-gray-900 border-t border-b border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                What <span class="text-accent">We Do</span>
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto">
+                Our bespoke development philosophy is built on technical mastery and deep business understanding.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Service 1: Application Development (Chip/CPU Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L12 19.25L14.25 17M12 4V19.25M17.5 10H6.5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Application Development</h3>
+                    <p class="text-gray-300">
+                        End-to-end web and mobile application development from concept through to deployment. We build robust, scalable solutions from scratch.
+                    </p>
+                </div>
+
+                <!-- Service 1: Custom Web Design (Palette/Brush Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5L9 13.5L14 8.5M2 13.5V17A2 2 0 004 19H20A2 2 0 0022 17V13.5M10.5 4L8 6.5M16 4L18.5 6.5M13 11V6.5M19 11V6.5M5 11V6.5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Custom Web Design</h3>
+                    <p class="text-gray-300">
+                        Each website we create is carefully crafted to deliver a truly unique online experience tailored to your brand. With us, your website won’t just stand out—it will also form a meaningful connection with your audience.
+                    </p>
+                </div>
+
+                <!-- Service 2: SEO (Chart Up/Trending Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h-1v4h-1V7H8V5h5v2zM5 12h14M12 17v-4m-7 4h14M12 5h14"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Search Engine Optimization</h3>
+                    <p class="text-gray-300">
+                        As a company specializing in Search Engine Optimization (SEO), we help enhance your online visibility by optimizing your website to rank higher in search engine results. This drives targeted, high-quality traffic to your site, boosts credibility, and supports sustained business growth through improved user experience and strategic content
+                    </p>
+                </div>
+
+                <!-- Service 2: Website Redesign (Document/File Edit Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.25 17.5L17.5 15.25L19.75 17.5M15.25 17.5L12 20.75M12 12L15.25 8.75L12 5.5L8.75 8.75L12 12Z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Website Redesign</h3>
+                    <p class="text-gray-300">
+                        We specialize in transforming your online presence with modern, user-friendly designs that boost your brand’s credibility and drive higher conversions. Our goal is to create websites that not only look great but also deliver seamless experiences to engage and grow your audience effectively.
+                    </p>
+                </div>
+                
+                <!-- Service 2: Expansion & Maintenance (Gear/Cog Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.5C16.1421 21.5 19.5 18.1421 19.5 14C19.5 9.85786 16.1421 6.5 12 6.5C7.85786 6.5 4.5 9.85786 4.5 14C4.5 18.1421 7.85786 21.5 12 21.5Z M12 10.5V14.5M12 14.5L15 17.5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Expansion & Maintenance</h3>
+                    <p class="text-gray-300">
+                        We take over, maintain, and expertly expand existing legacy or active applications, ensuring stability and future-proofing your tech stack.
+                    </p>
+                </div>
+
+                <!-- Service 3: AI & Data Science (Cube/Data Analysis Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2.5L21.5 7.5V16.5L12 21.5L2.5 16.5V7.5L12 2.5Z M12 12V21.5M12 12L2.5 7.5M12 12L21.5 7.5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Data Science & AI Boost</h3>
+                    <p class="text-gray-300">
+                        Leverage cutting-edge Data Science and AI models to gain insights, automate processes, and significantly boost your business performance.
+                    </p>
+                </div>
+
+                <!-- Service 4: Bespoke Development (Wand/Sparkle Icon) -->
+                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
+                    <div class="text-accent mb-4">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21.5L17.5 16L12 10.5L6.5 16L12 21.5Z M12 21.5L17.5 16L12 10.5L6.5 16L12 21.5Z M12 21.5V10.5M12 10.5L6.5 5M12 10.5L17.5 5"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Custom Bespoke Solutions</h3>
+                    <p class="text-gray-300">
+                        Truly unique, custom-built applications designed specifically to meet your exact operational requirements and strategic goals.
+                    </p>
+                </div>
+
+                <!-- Added Placeholder Service to fill space gracefully -->
+                <div class="hidden lg:block"></div> 
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Who We Are / Team Section -->
+    <section id="team" class="py-20 sm:py-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                The <span class="text-accent">Team</span> Behind The Code
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-16">
+                A collective of seasoned veterans dedicated to your success.
+            </p>
+
+            <div class="bg-gray-800 p-8 sm:p-12 rounded-xl shadow-2xl border-l-4 border-accent">
+                <blockquote class="text-2xl sm:text-3xl italic font-light text-gray-200 leading-relaxed mb-6">
+                    "Our group is formed with <span class="font-bold">empathy</span> in mind. We don't just write code; we partner with you to understand the human impact of our solutions."
+                </blockquote>
+                <p class="text-lg text-gray-300 border-t border-gray-700 pt-6">
+                    The Pixelup Solution team is composed of experts with decades of combined experience, honed by working on leading, cutting-edge technology platforms globally. 
+                </p>
+                <div class="mt-4 text-gray-400 font-semibold space-y-2">
+                    <p>Our sector experience includes:</p>
+                    <ul class="list-none grid grid-cols-2 gap-4 mt-2 pl-0">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.593 23.593 0 0112 15c-3.153 0-6.223-.526-9-1.745M16 18.5a4 4 0 004 4M4 18.5a4 4 0 014 4"></path></svg>
+                            Banking & Finance
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Real Estate Tech
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.21a4.004 4.004 0 010 5.656L12 20.502 4.382 12.89a4.004 4.004 0 010-5.656 4.004 4.004 0 015.656 0L12 8.5l2.059-2.058a4.004 4.004 0 015.656 0z"></path></svg>
+                            Healthcare Systems
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            High-Growth Startups
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Contact Us Section -->
+    <section id="contact" class="py-20 sm:py-24 bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
+                Connect <span class="text-accent">With Us</span>
+            </h2>
+            <p class="text-xl text-gray-400 text-center mb-12">
+                Let's discuss your next breakthrough project.
+            </p>
+
+            <!-- Added Physical Address -->
+            <div class="text-center mb-12 p-6 bg-gray-800/50 rounded-xl border border-gray-700 shadow-lg">
+                <div class="flex items-center justify-center text-accent mb-2">
+                    <!-- Location Pin Icon -->
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.727A8 8 0 016.343 5.273v11.454l.707.707a1 1 0 001.414 0l.707-.707m-2.121 2.121a3 3 0 104.242 0 3 3 0 00-4.242 0zM12 11a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+                    <h3 class="text-xl font-semibold text-white">Our Singapore Office</h3>
+                </div>
+                <p class="text-lg text-gray-300 font-medium">5 SOON LEE STREET, #02-57, PIONEER POINT, SINGAPORE 627607</p>
+            </div>
+            <!-- End Added Physical Address -->
+
+            <div id="feedback-message" class="hidden text-center p-3 mb-6 rounded-lg bg-green-900/50 text-green-300 font-medium"></div>
+
+            <!-- Inquiry Form -->
+            <form onsubmit="submitInquiry(event)" class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700 space-y-6">
+                
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Your name">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Work Email</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="your.email@company.com">
+                </div>
+
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Inquiry Details</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Tell us about your project, budget, and timeline..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full px-6 py-3 bg-accent text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.01]">
+                    Send Inquiry
+                </button>
+                <p class="text-center text-sm text-gray-400 mt-4">
+                    This button will open your default email client to send a message to: <span class="text-accent font-mono">admin@pixelupsolution.com</span>
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Pixelup Solution Pte. Ltd. All Rights Reserved. </p>
+            <p class="mt-2">Crafted with Precision in Singapore.</p>
+        </div>
+    </footer>
+    
+    <!-- FIX: Moved script block to the end of the body for robust DOM access, resolving the Three.js initialization error. -->
     <script>
         // --- 3D SCENE GLOBAL VARIABLES ---
         let scene, camera, renderer, clock, cubeGrid;
@@ -82,9 +337,9 @@
             const container = document.getElementById('home-hero');
             const canvas = document.getElementById('hero-canvas');
             
-            // FIX: Added necessary checks to ensure elements are loaded
+            // FIX: The error check is essential for robustness
             if (!container || !canvas) {
-                console.error("3D container or canvas element not found. Retrying initialization...");
+                console.error("3D container or canvas element not found. Initialization failed.");
                 return;
             }
 
@@ -168,7 +423,7 @@
         // Handle resizing for responsiveness
         function onWindowResize() {
             const container = document.getElementById('home-hero');
-            if (!container || !camera || !renderer) return; // FIX: Added safety checks
+            if (!container || !camera || !renderer) return; 
 
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
@@ -209,8 +464,9 @@
             const email = form.email.value;
             const message = form.message.value;
             const subject = encodeURIComponent(`Inquiry from ${name} (Pixelup Website)`);
+            
+            // Setting email address to admin@pixelupsolution.com
             const body = encodeURIComponent(`Sender Name: ${name}\nSender Email: ${email}\n\nMessage:\n${message}`);
-
             window.location.href = `mailto:admin@pixelupsolution.com?subject=${subject}&body=${body}`;
 
             // Provide a visual feedback message instead of alert()
@@ -229,245 +485,5 @@
             animateHeroText();
         });
     </script>
-</head>
-
-<body class="text-gray-100 bg-[#0d1117]">
-
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-xl">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-wrap justify-between items-center">
-            
-            <!-- Logo -->
-            <a href="#home-hero" class="text-2xl font-bold text-accent tracking-wider rounded-md transition duration-300">
-                Pixelup <span class="text-white">Solution</span>
-            </a>
-            
-            <!-- Mobile Menu Button -->
-            <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-accent focus:outline-none p-2 rounded-md transition duration-300">
-                <!-- Hamburger Icon (SVG) -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-            
-            <!-- Menu Links (Desktop and Mobile) -->
-            <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row md:space-x-8 mt-4 md:mt-0 w-full md:w-auto text-center md:text-left transition-all duration-300 ease-in-out">
-                <!-- Added onclick to close menu on mobile when a link is clicked -->
-                <a href="#home-hero" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
-                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Home</a>
-                <a href="#services" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
-                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Services</a>
-                <a href="#team" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
-                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Team</a>
-                <a href="#contact" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('flex');" 
-                   class="block md:inline-block text-gray-300 hover:text-accent transition duration-300 px-3 py-2 rounded-lg">Contact</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- 1. Hero / Company Intro Section -->
-    <!-- FIX: Removed duplicate ID attribute. Uses id="home-hero" for the JS to find the container. -->
-    <section id="home-hero" class="p-8 sm:p-12">
-        <!-- 3D Canvas RENDERER -->
-        <canvas id="hero-canvas"></canvas>
-        
-        <!-- Hero Content Overlay -->
-        <div class="hero-content-wrapper max-w-4xl mx-auto py-32 sm:py-48 lg:py-64">
-            <p class="text-md sm:text-lg font-medium text-gray-300 mb-4 tracking-widest uppercase hero-statement-1">Pixelup Solution Pte. Ltd. | Singapore</p>
-            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight tracking-tighter mb-6 text-white hero-statement-2">
-                Engineering <span class="text-accent">Precision</span> <br class="hidden sm:inline"> For A Digital Future.
-            </h1>
-            <!-- FIX: Removed markdown bolding, relying on Tailwind's font-bold/font-extrabold which is applied via classes on the section text -->
-            <p class="text-xl sm:text-2xl text-gray-200 font-bold max-w-3xl mx-auto leading-relaxed hero-statement-3">
-                We deliver creative, innovative, and affordable application development with unwavering preciseness,
-            </p>
-            <p class="text-xl sm:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed hero-statement-4">
-                turning complex challenges into simple, elegant digital solutions.
-            </p>
-            <a href="#services" class="mt-10 inline-block px-8 py-3 bg-accent text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.02] hero-statement-5">
-                Explore Our Expertise
-            </a>
-        </div>
-    </section>
-
-    <!-- 2. What We Do / Services Section -->
-    <section id="services" class="py-20 sm:py-24 bg-gray-900 border-t border-b border-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
-                What <span class="text-accent">We Do</span>
-            </h2>
-            <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto">
-                Our bespoke development philosophy is built on technical mastery and deep business understanding.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                <!-- Service 1: Development from Scratch -->
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Application Development</h3>
-                    <p class="text-gray-300">
-                        End-to-end web and mobile application development from concept through to deployment. We build robust, scalable solutions from scratch.
-                    </p>
-                </div>
-                
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Custom Web Design</h3>
-                    <p class="text-gray-300">
-                       Each website we create is carefully crafted to deliver a truly unique online experience tailored to your brand. With us, your website won’t just stand out—it will also form a meaningful connection with your audience.
-                    </p>
-                </div>
-
-                <!-- Service 2: Take Over & Maintain -->
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Search Engine Optimization</h3>
-                    <p class="text-gray-300">
-                       As a company specializing in Search Engine Optimization (SEO), we help enhance your online visibility by optimizing your website to rank higher in search engine results. This drives targeted, high-quality traffic to your site, boosts credibility, and supports sustained business growth through improved user experience and strategic content
-                    </p>
-                </div>
-
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Website Redesign</h3>
-                    <p class="text-gray-300">
-                       We specialize in transforming your online presence with modern, user-friendly designs that boost your brand’s credibility and drive higher conversions. Our goal is to create websites that not only look great but also deliver seamless experiences to engage and grow your audience effectively.
-                    </p>
-                </div>
-
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Expansion & Maintenance</h3>
-                    <p class="text-gray-300">
-                        We take over, maintain, and expertly expand existing legacy or active applications, ensuring stability and future-proofing your tech stack.
-                    </p>
-                </div>
-
-                <!-- Service 3: AI & Data Science -->
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Data Science & AI Boost</h3>
-                    <p class="text-gray-300">
-                        Leverage cutting-edge Data Science and AI models to gain insights, automate processes, and significantly boost your business performance.
-                    </p>
-                </div>
-
-                <!-- Service 4: Bespoke Development -->
-                <div class="bg-accent-light p-8 rounded-xl shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/30 border border-gray-700">
-                    <div class="text-accent mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.127l.968 2.872.968-2.872L21 12l-5.968 2.127-.968-2.872-.968 2.872L3 12l5.968-2.127.968 2.872.968-2.872"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Custom Bespoke Solutions</h3>
-                    <p class="text-gray-300">
-                        Truly unique, custom-built applications designed specifically to meet your exact operational requirements and strategic goals.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. Who We Are / Team Section -->
-    <section id="team" class="py-20 sm:py-24">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
-                The <span class="text-accent">Team</span> Behind The Code
-            </h2>
-            <p class="text-xl text-gray-400 text-center mb-16">
-                A collective of seasoned veterans dedicated to your success.
-            </p>
-
-            <div class="bg-gray-800 p-8 sm:p-12 rounded-xl shadow-2xl border-l-4 border-accent">
-                <!-- FIX: Removed markdown bolding, relying on Tailwind's font-bold/font-extrabold which is applied via classes on the blockquote text -->
-                <blockquote class="text-2xl sm:text-3xl italic font-light text-gray-200 leading-relaxed mb-6">
-                    "Our group is formed with <span class="font-bold">empathy</span> in mind. We don't just write code; we partner with you to understand the human impact of our solutions."
-                </blockquote>
-                <p class="text-lg text-gray-300 border-t border-gray-700 pt-6">
-                    The Pixelup Solution team is composed of experts with decades of combined experience, honed by working on leading, cutting-edge technology platforms globally. 
-                </p>
-                <div class="mt-4 text-gray-400 font-semibold space-y-2">
-                    <p>Our sector experience includes:</p>
-                    <ul class="list-none grid grid-cols-2 gap-4 mt-2 pl-0">
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.593 23.593 0 0112 15c-3.153 0-6.223-.526-9-1.745M16 18.5a4 4 0 004 4M4 18.5a4 4 0 014 4"></path></svg>
-                            Banking & Finance
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            Real Estate Tech
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.21a4.004 4.004 0 010 5.656L12 20.502 4.382 12.89a4.004 4.004 0 010-5.656 4.004 4.004 0 015.656 0L12 8.5l2.059-2.058a4.004 4.004 0 015.656 0z"></path></svg>
-                            Healthcare Systems
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-5 h-5 text-accent mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            High-Growth Startups
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. Contact Us Section -->
-    <section id="contact" class="py-20 sm:py-24 bg-gray-900 border-t border-gray-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-center mb-4">
-                Connect <span class="text-accent">With Us</span>
-            </h2>
-            <p class="text-xl text-gray-400 text-center mb-12">
-                Let's discuss your next breakthrough project.
-            </p>
-
-            <div id="feedback-message" class="hidden text-center p-3 mb-6 rounded-lg bg-green-900/50 text-green-300 font-medium"></div>
-
-            <!-- Inquiry Form -->
-            <form onsubmit="submitInquiry(event)" class="bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700 space-y-6">
-                
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                    <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Your name">
-                </div>
-
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Work Email</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="your.email@company.com">
-                </div>
-
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Project Inquiry Details</label>
-                    <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-accent focus:border-accent outline-none text-white transition duration-200" placeholder="Tell us about your project, budget, and timeline..."></textarea>
-                </div>
-
-                <button type="submit" class="w-full px-6 py-3 bg-accent text-white font-semibold text-lg rounded-lg shadow-lg hover:bg-indigo-500 transition duration-300 transform hover:scale-[1.01]">
-                    Send Inquiry
-                </button>
-                <p class="text-center text-sm text-gray-400 mt-4">
-                    This button will open your default email client to send a message to: <span class="text-accent font-mono">admin@pixelupsolution.com</span>
-                </p>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-8">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            <p>&copy; 2025 Pixelup Solution Pte. Ltd. All Rights Reserved. </p>
-            <p class="mt-2">Crafted with Precision in Singapore.</p>
-        </div>
-    </footer>
-
 </body>
 </html>
